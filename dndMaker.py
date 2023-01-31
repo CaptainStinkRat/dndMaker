@@ -20,6 +20,7 @@ class Menu(tk.Tk):
         self.elfPath = 'elf.jpg'
         self.gnomePath = 'gnome.jpg'
         self.halflingPath = 'halfling.jpg'
+        self.creation = False
         self.createWidgets()
     def createWidgets(self):
         self.searchEntry = ttk.Entry(self,textvariable=self.searchTerm,width=30)
@@ -57,7 +58,7 @@ class Menu(tk.Tk):
         self.image = ImageTk.PhotoImage(Image.open(self.elfPath))
         self.panel = tk.Label(self,image = self.image)
         self.panel.grid(row=1,column=1)
-        self.createButton = ttk.Button(self,text='Create character!')
+        self.createButton = ttk.Button(self,text='Create character!',command=self.create)
         self.createButton.grid(row=2,column=0)
 
     def classPicks(self,*args):
@@ -175,6 +176,9 @@ class Menu(tk.Tk):
             self.image = ImageTk.PhotoImage(Image.open(self.gnomePath))
             self.panel = tk.Label(self,image = self.image)
             self.panel.grid(row=1,column=1)
+
+    def create(self,*args):
+        self.creation = True
 if __name__=='__main__':
     app = Menu()
     app.mainloop()
