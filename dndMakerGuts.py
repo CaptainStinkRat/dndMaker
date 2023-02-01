@@ -1,19 +1,19 @@
 from dndMaker import Menu
 import json
 
-class character:
-    def __init__(self,name,species,classSelect):
-        self.name = name
-        self.species = species
-        self.classSelect = classSelect
-    def toJson(self):
-        return json.dumps(self,indent=4,default=lambda o: o.__dict__)
-
 if __name__=='__main__':
     app = Menu()
     app.mainloop()
     if app.creation == True:
-        newCharacter = character(app.searchTerm.get(),app.speciesSelection.get(),app.classSelection.get())
-        newCharCreate = newCharacter.toJson()
+        charList = []
+        with open('character.json') as fp:
+            charList = json.load(fp)
+        
+        charList.append({
+            "name": f"{app.searchTerm.get()}",
+            "species": f"{app.speciesSelection.get()}",
+            "classSelect": f"{app.classSelection.get()}",
+        })
+        
         with open('character.json','w') as outfile:
-            outfile.write(newCharCreate)
+            json.dump(charList,outfile,indent=4,separators=(',',': '))
